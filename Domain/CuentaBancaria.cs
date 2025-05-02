@@ -20,7 +20,7 @@ public class CuentaBancaria
         _titulares = titulares;
     }
 
-    // Cambiar esto (no los nombres), por ahora yo lo uso así (punto-7)
+    // Cambiar esto (no los nombres), por ahora yo lo uso así (punto 7 y 8)
     #region Getters/Setters
     public string GetNumero()
     {

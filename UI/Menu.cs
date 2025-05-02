@@ -6,19 +6,31 @@ public static class Menu
 {
     private static readonly List<CuentaBancaria> cuentas = [];
 
+    // Metodo usado para mostrar el menu en la consola
     public static void Show()
     {
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("=== Sistema Bancario ===");
-            Console.WriteLine("1. Crear Cuenta");
-            Console.WriteLine("2. Depositar");
-            Console.WriteLine("3. Retirar");
-            Console.WriteLine("4. Aplicar Interés");
-            Console.WriteLine("5. Mostrar Resumen de Cuentas");
-            Console.WriteLine("6. Salir");
-            Console.Write("Seleccione una opción: ");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+
+            Console.WriteLine("====================================");
+            Console.WriteLine("     === SISTEMA BANCARIO ===   ");
+            Console.WriteLine("====================================\n");
+
+            Console.ResetColor();
+
+            Console.WriteLine("Menú principal:\n");
+
+            Console.WriteLine("  1. Crear Cuenta");
+            Console.WriteLine("  2. Depositar");
+            Console.WriteLine("  3. Retirar");
+            Console.WriteLine("  4. Aplicar Interés");
+            Console.WriteLine("  5. Mostrar Resumen de Cuentas");
+            Console.WriteLine("  6. Salir\n");
+
 
             switch (Console.ReadLine())
             {
