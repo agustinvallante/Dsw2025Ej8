@@ -1,0 +1,111 @@
+﻿using Dsw2025Ej8.Domain;
+using static Dsw2025Ej8.Domain.Exceptions.Exceptions;
+
+namespace Dsw2025Ej8.UI;
+
+public static class Menu
+{
+    private static readonly List<CuentaBancaria> cuentas = [];
+
+    // Metodo usado para mostrar el menu en la consola
+    public static void Show()
+    {
+        while (true)
+        {
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
+
+            Console.WriteLine("====================================");
+            Console.WriteLine("     === SISTEMA BANCARIO ===   ");
+            Console.WriteLine("====================================\n");
+
+            Console.ResetColor();
+
+            Console.WriteLine("Menú principal:\n");
+
+            Console.WriteLine("  1. Crear Cuenta");
+            Console.WriteLine("  2. Depositar");
+            Console.WriteLine("  3. Retirar");
+            Console.WriteLine("  4. Aplicar Interés");
+            Console.WriteLine("  5. Mostrar Resumen de Cuentas");
+            Console.WriteLine("  6. Salir\n");
+
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    CrearCuenta();
+                    break;
+                case "2":
+                    Depositar();
+                    break;
+                case "3":
+                    Retirar();
+                    break;
+                case "4":
+                    AplicarInteres();
+                    break;
+                case "5":
+                    MostrarResumen();
+                    break;
+                case "6":
+                    return;
+                default:
+                    Console.WriteLine("Opción inválida. Presione una tecla para continuar...");
+                    Console.ReadKey();
+                    break;
+            }
+        }
+    }
+    private static void CrearCuenta()
+    {
+
+        Console.Clear();
+        Console.WriteLine("=== Crear Cuenta ===");
+        Console.Write("Ingrese el número de cuenta: ");
+        string numero = Console.ReadLine() ?? string.Empty;
+
+        Console.Write("Ingrese el saldo inicial: ");
+
+        decimal saldo = -2;
+
+        try
+        {
+            if (saldo <= 0)
+                throw new MontoNoValidoException(); // ← tu excepción personalizada
+        }
+        catch (MontoNoValidoException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(ex.Message);
+            Console.ResetColor();
+            Console.WriteLine("Presione una tecla para continuar...");
+            Console.ReadKey();
+            return;
+        }
+
+    }
+
+    private static void MostrarResumen()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void AplicarInteres()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Retirar()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Depositar()
+    {
+        throw new NotImplementedException();
+    }
+
+}
