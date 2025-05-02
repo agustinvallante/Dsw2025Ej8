@@ -2,124 +2,125 @@
 
 public class CuentaBancaria
 {
-    private TipoCuenta _tipo;
-    private string _numero;
-    private decimal _saldo;
-    private Estado _estado;
-    private decimal _tasaDeInteres;
-    private decimal _limiteDeDescubierto;
-    private decimal _comision;
-    private string[] _titulares;
+    public TipoCuenta Tipo { get; }
+    public string Numero { get; private set; }
+    public decimal Saldo { get; protected set; } // protected pa que las clases hijas accedan de chill
+    public Estado Estado { get; protected set; }
+    public decimal TasaDeInteres { get; set; }
+    public decimal LimiteDeDescubierto { get; set; }
+    public decimal Comision { get; set; } 
+    public string[] Titulares { get; private set; } 
 
     public CuentaBancaria(string numero, decimal saldo, TipoCuenta tipo, string[] titulares)
     {
-        _numero = numero;
-        _saldo = saldo;
-        _tipo = tipo;
-        _estado = Estado.Activa;
-        _titulares = titulares;
+        Numero = numero;
+        Saldo = saldo;
+        Tipo = tipo;
+        Estado = Estado.Activa;
+        Titulares = titulares;
     }
 
     // Cambiar esto (no los nombres), por ahora yo lo uso así (punto 7 y 8)
     #region Getters/Setters
-    public string GetNumero()
-    {
-        return _numero;
-    }
+    //public string GetNumero()
+    //{
+    //    return _numero;
+    //}
 
-    public decimal GetSaldo()
-    {
-        return _saldo;
-    }
-    public TipoCuenta GetTipo()
-    {
-        return _tipo;
-    }
+    //public decimal GetSaldo()
+    //{
+    //    return _saldo;
+    //}
 
-    public Estado GetEstado()
-    {
-        return _estado;
-    }
+    //public TipoCuenta GetTipo()
+    //{
+    //    return _tipo;
+    //}
 
-    public void SetEstado(Estado estado)
-    {
-        _estado = estado;
-    }
+    //public Estado GetEstado()
+    //{
+    //    return _estado;
+    //}
 
-    public decimal GetTasaDeInteres()
-    {
-        return _tasaDeInteres;
-    }
+    //public void SetEstado(Estado estado)
+    //{
+    //    _estado = estado;
+    //}
 
-    public void SetTasaDeInteres(decimal tasaDeInteres)
-    {
-        _tasaDeInteres = tasaDeInteres;
-    }
+    //public decimal GetTasaDeInteres()
+    //{
+    //    return _tasaDeInteres;
+    //}
 
-    public decimal GetLimiteDeDescubierto()
-    {
-        return _limiteDeDescubierto;
-    }
+    //public void SetTasaDeInteres(decimal tasaDeInteres)
+    //{
+    //    _tasaDeInteres = tasaDeInteres;
+    //}
 
-    public void SetLimiteDeDescubierto(decimal limiteDeDescubierto)
-    {
-        _limiteDeDescubierto = limiteDeDescubierto;
-    }
+    //public decimal GetLimiteDeDescubierto()
+    //{
+    //    return _limiteDeDescubierto;
+    //}
 
-    public decimal GetComision()
-    {
-        return _comision;
-    }
+    //public void SetLimiteDeDescubierto(decimal limiteDeDescubierto)
+    //{
+    //    _limiteDeDescubierto = limiteDeDescubierto;
+    //}
 
-    public void SetComision(decimal comision)
-    {
-        _comision = comision;
-    }
+    //public decimal GetComision()
+    //{
+    //    return _comision;
+    //}
 
-    public string[] GetTitulares()
-    {
-        return _titulares;
-    }
-    #endregion
+    //public void SetComision(decimal comision)
+    //{
+    //    _comision = comision;
+    //}
+
+    //public string[] GetTitulares()
+    //{
+    //    return _titulares;
+    //}
+    #endregion  
 
     // Métodos de la clase
     public void Depositar(decimal monto)
     {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
+        if (Tipo == TipoCuenta.CajaDeAhorro)
         {
-            _saldo += monto;
+            Saldo += monto;
         }
-        else if (_tipo == TipoCuenta.CuentaCorriente)
+        else if (Tipo == TipoCuenta.CuentaCorriente)
         {
-            monto -= monto * _comision;
-            _saldo += monto;
+            monto -= monto * Comision;
+            Saldo += monto;
         }
     }
 
     public void Retirar(decimal monto)
     {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
+        if (Tipo == TipoCuenta.CajaDeAhorro)
         {
-            _saldo -= monto;
+            Saldo -= monto;
         }
-        else if (_tipo == TipoCuenta.CuentaCorriente)
+        else if (Tipo == TipoCuenta.CuentaCorriente)
         {
-            if (_saldo - monto >= -_limiteDeDescubierto)
+            if (Saldo - monto >= -LimiteDeDescubierto)
             {
-                _saldo -= monto;
+                Saldo -= monto;
             }
-            if (_saldo < 0)
+            if (Saldo < 0)
             {
-                _estado = Estado.Suspendida;
+                Estado = Estado.Suspendida;
             }
         }
     }
 
     public void AplicarInteres()
     {
-        if (_tipo == TipoCuenta.CajaDeAhorro)
+        if (Tipo == TipoCuenta.CajaDeAhorro)
         {
-            _saldo += _saldo * _tasaDeInteres;
+            Saldo += Saldo * TasaDeInteres;
         }
     }
 
