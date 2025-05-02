@@ -1,10 +1,10 @@
-﻿namespace Dsw2025Ej8
+﻿using Dsw2025Ej8.UI;
+namespace Dsw2025Ej8;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            
-        }
+        Menu.Show();
     }
 }
