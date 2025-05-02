@@ -13,11 +13,13 @@ namespace Dsw2025Ej8.Domain
         public decimal LimiteDeDescubierto { get; set; }
         public decimal Comision {  get; set; }
 
-        public CuentaCorriente(string numero, decimal saldo, string[] titulares, decimal limiteDeDescubierto, decimal comision) 
+        // Se elimina del constructor la propiedad limiteDeDescubierto y comision, ya que no se deben inicializar en el constructor 
+        // (punto 8)
+        public CuentaCorriente(string numero, decimal saldo, string[] titulares) 
             : base(numero, saldo, TipoCuenta.CuentaCorriente, titulares)
         {
-            LimiteDeDescubierto = limiteDeDescubierto;
-            Comision = comision;
+            // LimiteDeDescubierto = limiteDeDescubierto;
+            // Comision = comision;
         }
 
         public override void Depositar(decimal monto)

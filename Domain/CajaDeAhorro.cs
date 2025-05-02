@@ -11,11 +11,13 @@ namespace Dsw2025Ej8.Domain
     public class CajaDeAhorro : CuentaBancaria
     {
         public decimal TasaDeInteres { get; set; }
-
-        public CajaDeAhorro(string numero, decimal saldo, string[] titulares, decimal tasaDeInteres) 
+        // Se elimina del constructor la propiedad TasaDeInteres, ya que no se debe inicializar en el constructor
+        // segun el enunciado
+        public CajaDeAhorro(string numero, decimal saldo, string[] titulares) 
             : base (numero, saldo, TipoCuenta.CajaDeAhorro, titulares)
         {
-            TasaDeInteres = tasaDeInteres;
+            
+            // TasaDeInteres = tasaDeInteres;
         }
 
         public override void Depositar(decimal monto)
