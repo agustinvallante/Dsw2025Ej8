@@ -7,9 +7,19 @@ public static class Menu
 {
     private static readonly List<CuentaBancaria> cuentas = [];
 
+    //Precarga de cuentas
+    private static void PrecargarCuentas()
+    {
+        cuentas.Add(new CajaDeAhorro("CA1", 1000000, new[] { "Titular 1" }) { TasaDeInteres = 0.05m });
+        cuentas.Add(new CajaDeAhorro("CA2", 20000, new[] { "Titular 2" }) { TasaDeInteres = 0.03m });
+        cuentas.Add(new CuentaCorriente("CC1", 5000000, new[] { "Titular 3" }) { LimiteDeDescubierto = 300m, Comision = 0.02m });
+        cuentas.Add(new CuentaCorriente("CC2", 1500, new[] { "Titular 4" }) { LimiteDeDescubierto = 500m, Comision = 0.01m });
+    }
+
     // Metodo usado para mostrar el menu en la consola
     public static void Show()
     {
+        PrecargarCuentas();
         while (true)
         {
             Console.Clear();
@@ -133,7 +143,7 @@ public static class Menu
                     throw new MontoNoValidoException();
                 }
 
-                Console.Write("Ingrese la comisión para la Cuenta Corriente (en porcentaje, ej. 0.05 para 5%): ");
+                Console.Write("Ingrese la comisión para la Cuenta Corriente (en porcentaje, ej. 0,05 para 5%): ");
                 if (!decimal.TryParse(Console.ReadLine(), out decimal comision) || comision < 0 || comision > 1)
                 {
                     throw new ArgumentException("La comisión debe estar entre 0 y 1.");
@@ -210,6 +220,8 @@ public static class Menu
         Console.ReadKey();
     }
 
+
+    // Aplicar interes a todas las cuentas
     private static void AplicarInteres()
     {
         Console.Clear();
@@ -247,6 +259,8 @@ public static class Menu
         Console.ReadKey();
     }
 
+
+    // Retirar dinero de una cuenta
     private static void Retirar()
     {
         Console.Clear();
@@ -292,6 +306,8 @@ public static class Menu
         }
     }
 
+
+    // Depositar dinero en una cuenta
     private static void Depositar()
     {
         Console.Clear();
