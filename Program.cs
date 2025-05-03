@@ -1,4 +1,5 @@
 ﻿using Dsw2025Ej8.Domain;
+using Dsw2025Ej8.UI;
 
 namespace Dsw2025Ej8
 {
@@ -6,7 +7,7 @@ namespace Dsw2025Ej8
     {
         static void Main(string[] args)
         {
-
+            Menu.Show();
         }
     }
 }
