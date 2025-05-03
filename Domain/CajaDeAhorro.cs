@@ -32,7 +32,7 @@ namespace Dsw2025Ej8.Domain
             ValidarOperacion (monto);
             if (Saldo < monto)
             {
-                Estado = Estado.Inactiva;
+                Estado = Estado.Suspendida;
                 throw new SaldoInsuficienteException();
             }
             Saldo -= monto;
@@ -41,6 +41,7 @@ namespace Dsw2025Ej8.Domain
         public override void AplicarInteres()
         {
             //SetSaldo(GetSaldo() * _tasaDeInteres);
+            ValidarOperacion(1);
             if (Estado != Estado.Activa) throw new CuentaNoActivaException(Estado);
             Saldo *= TasaDeInteres;
         }

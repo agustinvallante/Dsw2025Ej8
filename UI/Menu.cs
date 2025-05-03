@@ -179,6 +179,7 @@ public static class Menu
         }
     }
 
+    //Resumen de cuentas
     private static void MostrarResumen()
     {
         Console.Clear();
@@ -211,17 +212,123 @@ public static class Menu
 
     private static void AplicarInteres()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("=== Aplicar Interés ===\n");
+
+        if (cuentas.Count == 0)
+        {
+            Console.WriteLine("No hay cuentas registradas.");
+        }
+        else
+        {
+            foreach (var cuenta in cuentas)
+            {
+                try
+                {
+                    cuenta.AplicarInteres();
+                    Console.WriteLine($"Interés aplicado a la cuenta {cuenta.Numero}. Nuevo saldo: ${cuenta.Saldo:F2}");
+                }
+                catch (CuentaNoActivaException ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Error en la cuenta {cuenta.Numero}: {ex.Message}");
+                    Console.ResetColor();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Error inesperado en la cuenta {cuenta.Numero}: {ex.Message}");
+                    Console.ResetColor();
+                }
+            }
+        }
+
+        Console.WriteLine("\nPresione una tecla para continuar...");
+        Console.ReadKey();
     }
 
     private static void Retirar()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("=== Retirar ===\n");
+
+        try
+        {
+            Console.Write("Ingrese el número de cuenta: ");
+            string numeroCuenta = Console.ReadLine();
+
+            var cuenta = cuentas.FirstOrDefault(c => c.Numero == numeroCuenta);
+            if (cuenta == null)
+            {
+                Console.WriteLine("Cuenta no encontrada.");
+                return;
+            }
+
+            Console.Write("Ingrese el monto a retirar: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal monto) || monto <= 0)
+            {
+                throw new MontoNoValidoException();
+            }
+
+            cuenta.Retirar(monto);
+            Console.WriteLine($"Retiro realizado con éxito. Nuevo saldo: ${cuenta.Saldo:F2}");
+        }
+        catch (SaldoInsuficienteException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
+        finally
+        {
+            Console.WriteLine("\nPresione una tecla para continuar...");
+            Console.ReadKey();
+        }
     }
 
     private static void Depositar()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("=== Depositar ===\n");
+
+        try
+        {
+            Console.Write("Ingrese el número de cuenta: ");
+            string numeroCuenta = Console.ReadLine();
+
+            var cuenta = cuentas.FirstOrDefault(c => c.Numero == numeroCuenta);
+            if (cuenta == null)
+            {
+                Console.WriteLine("Cuenta no encontrada.");
+                return;
+            }
+
+            Console.Write("Ingrese el monto a depositar: ");
+            if (!decimal.TryParse(Console.ReadLine(), out decimal monto) || monto <= 0)
+            {
+                throw new MontoNoValidoException();
+            }
+
+            cuenta.Depositar(monto);
+            Console.WriteLine($"Depósito realizado con éxito. Nuevo saldo: ${cuenta.Saldo:F2}");
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
+        finally
+        {
+            Console.WriteLine("\nPresione una tecla para continuar...");
+            Console.ReadKey();
+        }
     }
 
 }
