@@ -205,14 +205,18 @@ public static class Menu
             {
                 Numero = cuenta.Numero,
                 Tipo = cuenta.Tipo,
-                Saldo = cuenta.Saldo
+                Saldo = cuenta.Saldo,
+                Estado = cuenta.Estado,
+                Titulares = string.Join(", ", cuenta.Titulares.Select(t => t.Trim()))
             });
+
+            Console.WriteLine("{0,-10} | {1,-18} | {2,-10} | {3,-12} | {4}",
+                  "Número", "Tipo", "Saldo", "Estado", "Titulares");
+            Console.WriteLine(new string('-', 80));
 
             foreach (var resumen in resumenes)
             {
-                Console.WriteLine($"Número: {resumen.Numero}");
-                Console.WriteLine($"Tipo: {resumen.Tipo}");
-                Console.WriteLine($"Saldo: ${resumen.Saldo:F2}\n");
+                Console.WriteLine($"{resumen.Numero,-10} | {resumen.Tipo,-18} | ${resumen.Saldo,-10:F2} | {resumen.Estado,-12} | {resumen.Titulares}");
             }
         }
 
